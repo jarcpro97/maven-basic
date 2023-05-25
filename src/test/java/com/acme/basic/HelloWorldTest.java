@@ -25,5 +25,20 @@ public class HelloWorldTest {
     new HelloWorld().notCoveredThree();
     Assert.assertTrue(true);
   }
+  @Test
+  public void notCoveredFour() {
+    new HelloWorld().notCoveredFour();
+    Assert.assertTrue(true);
+  }
+  @Test
+  public void notCoveredFive() {
+    new HelloWorld().notCoveredFive();
+    Assert.assertTrue(true);
+  }
+  @Test
+  public void notCoveredSix() {
+    new HelloWorld().notCoveredSix();
+    Assert.assertTrue(true);
+  }
 
 }
