@@ -11,19 +11,19 @@ pipeline {
     stages {
         stage('Source code') {
             steps {
-                git url: 'https://jarcpro97@bitbucket.org/carecloudteam/maven-basic.git',credentialsId: 'jenkins-bitbucket-calidad', branch: "${env.BRANCH_NAME}"
+                git url: 'https://github.com/jarcpro97/maven-basic.git',credentialsId: 'github-credentials', branch: "main"
             }
         }
         stage('Build') {
             steps {
-                withMaven(maven: 'Maven3_6_3') {
+                withMaven(maven: 'Maven3_9_2') {
                     sh "mvn clean package"
                 }
             }
         }
         stage('Test') {
             steps {
-                withMaven(maven: 'Maven3_6_3') {
+                withMaven(maven: 'Maven3_9_2') {
                     sh "mvn clean verify"
                 }
             }
@@ -31,15 +31,8 @@ pipeline {
         stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                   withMaven(maven: 'Maven3_6_3') {
-                     script {
-                        if(env.BRANCH_NAME.contains('PR-')){
-                            sonarSwitches = "${prKey} ${prBranch} ${prBase} -Dsonar.scm.revision=${env.GIT_COMMIT}"
-                        } else {
-                            sonarSwitches = "${sonarBranch}"
-                        }
-                     }
-                     sh "mvn sonar:sonar ${sonarSwitches}"
+                   withMaven(maven: 'Maven3_9_2') {
+                     sh "mvn sonar:sonar"
                     }
                 }
             }
