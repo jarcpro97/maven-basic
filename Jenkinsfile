@@ -16,14 +16,14 @@ pipeline {
         }
         stage('Build') {
             steps {
-                withMaven(maven: 'Maven3_9_2') {
+                withMaven(maven: 'maven3_9_2') {
                     sh "mvn clean package"
                 }
             }
         }
         stage('Test') {
             steps {
-                withMaven(maven: 'Maven3_9_2') {
+                withMaven(maven: 'maven3_9_2') {
                     sh "mvn clean verify"
                 }
             }
@@ -31,7 +31,7 @@ pipeline {
         stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                   withMaven(maven: 'Maven3_9_2') {
+                   withMaven(maven: 'maven3_9_2') {
                      sh "mvn sonar:sonar"
                     }
                 }
